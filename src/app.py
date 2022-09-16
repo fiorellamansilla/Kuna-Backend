@@ -60,6 +60,23 @@ def create_item():
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
+# PUT Method / UPDATE data from an item into the database
+
+@app.route("/items/<item_id>", methods = ['PUT'])
+def update_item(item_id):
+    try:
+        cursor = connection.connection.cursor()
+
+        sql = """UPDATE items SET name_item = '{0}', desc_item = '{1}', size = '{2}', price = {3}, discount = {4}, SKU = '{5}', quantity_stock = {6} 
+        WHERE item_id = {7}""" .format (request.json['name_item'], request.json['desc_item'], request.json['size'], 
+        request.json['price'], request.json['discount'], request.json['SKU'], request.json['quantity_stock'], item_id)
+    
+        cursor.execute(sql)
+        connection.connection.commit()
+        return jsonify({'message': "Producto actualizado."})
+    except Exception as ex:
+        return jsonify ({'message': "Error"})
+
 
 # DELETE Method : eliminate an item from the database
 
@@ -73,6 +90,7 @@ def delete_item(item_id):
         return jsonify({'message': "Producto eliminado."})
     except Exception as ex:
         return jsonify ({'message': "Error"})
+
 
 
 def page_not_found(error):
