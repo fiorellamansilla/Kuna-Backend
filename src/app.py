@@ -27,7 +27,7 @@ def list_items():
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
-# GET Method / READ :  for fetching only one item with its ID
+# GET Method / READ :  fetching only one item with its ID
 
 @app.route("/items/<item_id>", methods = ['GET'])  
 def read_item(item_id):
@@ -42,23 +42,35 @@ def read_item(item_id):
             return jsonify({'item': item, 'message': "Producto encontrado."})
         else:
             return jsonify({'message': "Producto no encontrado."})
-
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
-# POST Method / CREATE : for adding a new item into the database
+# POST Method / CREATE : for insert a new item into the database
 
 @app.route("/items", methods = ['POST'])
 def create_item():
     try:
         cursor = connection.connection.cursor()
-        sql =  """INSERT INTO items (item_id, name_item, desc_item, size, price, discount, SKU, quantity_stock) 
+        sql =  """INSERT INTO items (item_id, name_item, desc_item, size, price, discount,  SKU, quantity_stock) 
         VALUES ({0}, '{1}', '{2}', '{3}', {4}, {5}, '{6}', {7})""".format(request.json['item_id'], request.json['name_item'], request.json['desc_item'], request.json['size'], 
         request.json['price'], request.json['discount'], request.json['SKU'], request.json['quantity_stock'])
         cursor.execute(sql)
         connection.connection.commit()
         return jsonify({'message': "Producto registrado."})
+    except Exception as ex:
+        return jsonify ({'message': "Error"})
 
+
+# DELETE Method : eliminate an item from the database
+
+@app.route("/items/<item_id>", methods = ['DELETE'])
+def delete_item(item_id):
+    try:
+        cursor = connection.connection.cursor()
+        sql = "DELETE FROM items WHERE item_id = '{0}'".format(item_id)
+        cursor.execute(sql)
+        connection.connection.commit()
+        return jsonify({'message': "Producto eliminado."})
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
