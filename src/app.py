@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 
 from config import config
@@ -21,16 +21,16 @@ def list_items():
 
         items = []
         for fila in datos:
-            item = {'item_id':fila[0], 'name_item':fila[1], 'desc_item':fila[2], 'size':fila[3], 'price':fila[4], 'SKU':fila[5], 'quantity_stock':fila[6]}
+            item = {'item_id':fila[0], 'name_item':fila[1], 'desc_item':fila[2], 'size':fila[3], 'price':fila[4], 'discount':fila[5], 'SKU':fila[6], 'quantity_stock':fila[7]}
             items.append(item)
         return jsonify({'items': items, 'message': "Productos listados."})
-
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
-# GET Method for fetching only one item with its ID
+# GET Method / READ :  for fetching only one item with its ID
+
 @app.route("/items/<item_id>", methods = ['GET'])  
-def read_items(item_id):
+def read_item(item_id):
     try:
         cursor = connection.connection.cursor()
         sql =  "SELECT * FROM items WHERE item_id = '{0}'".format(item_id)
@@ -38,13 +38,30 @@ def read_items(item_id):
         datos = cursor.fetchone()
 
         if datos != None:
-            item = {'item_id':datos[0], 'name_item':datos[1], 'desc_item':datos[2], 'size':datos[3], 'price':datos[4], 'SKU':datos[5], 'quantity_stock':datos[6]}
-            return jsonify({'item': item, 'message': "Item encontrado."})
+            item = {'item_id':datos[0], 'name_item':datos[1], 'desc_item':datos[2], 'size':datos[3], 'price':datos[4], 'discount':datos[5], 'SKU':datos[6], 'quantity_stock':datos[7]}
+            return jsonify({'item': item, 'message': "Producto encontrado."})
         else:
-            return jsonify({'message': "Item no encontrado."})
+            return jsonify({'message': "Producto no encontrado."})
 
     except Exception as ex:
         return jsonify ({'message': "Error"})
+
+# POST Method / CREATE : for adding a new item into the database
+
+@app.route("/items", methods = ['POST'])
+def create_item():
+    try:
+        cursor = connection.connection.cursor()
+        sql =  """INSERT INTO items (item_id, name_item, desc_item, size, price, discount, SKU, quantity_stock) 
+        VALUES ({0}, '{1}', '{2}', '{3}', {4}, {5}, '{6}', {7})""".format(request.json['item_id'], request.json['name_item'], request.json['desc_item'], request.json['size'], 
+        request.json['price'], request.json['discount'], request.json['SKU'], request.json['quantity_stock'])
+        cursor.execute(sql)
+        connection.connection.commit()
+        return jsonify({'message': "Producto registrado."})
+
+    except Exception as ex:
+        return jsonify ({'message': "Error"})
+
 
 def page_not_found(error):
     return "<h1> La página que intentas buscar no existe. </h1>", 404
