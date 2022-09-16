@@ -7,30 +7,31 @@ app = Flask(__name__)
 
 connection = MySQL(app)
 
- # GET Method for fetching all the items with their basic information
+ # GET Method / READ :for fetching all the items with their basic information
 
 @app.route("/items", methods = ['GET'])
 def list_items():
+
     try:
         cursor = connection.connection.cursor()
         sql =  "SELECT * FROM items"
         cursor.execute(sql)
         datos = cursor.fetchall()
-
-        # Return data from database with JSON 
-
         items = []
         for fila in datos:
             item = {'item_id':fila[0], 'name_item':fila[1], 'desc_item':fila[2], 'size':fila[3], 'price':fila[4], 'discount':fila[5], 'SKU':fila[6], 'quantity_stock':fila[7]}
             items.append(item)
+
         return jsonify({'items': items, 'message': "Productos listados."})
+
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
-# GET Method / READ :  fetching only one item with its ID
+# GET Method / READ : for fetching only one item with its ID
 
 @app.route("/items/<item_id>", methods = ['GET'])  
 def read_item(item_id):
+
     try:
         cursor = connection.connection.cursor()
         sql =  "SELECT * FROM items WHERE item_id = '{0}'".format(item_id)
@@ -42,13 +43,15 @@ def read_item(item_id):
             return jsonify({'item': item, 'message': "Producto encontrado."})
         else:
             return jsonify({'message': "Producto no encontrado."})
+
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
-# POST Method / CREATE : for insert a new item into the database
+# POST Method / CREATE : for inserting a new item into the database
 
 @app.route("/items", methods = ['POST'])
 def create_item():
+
     try:
         cursor = connection.connection.cursor()
         sql =  """INSERT INTO items (item_id, name_item, desc_item, size, price, discount,  SKU, quantity_stock) 
@@ -57,6 +60,7 @@ def create_item():
         cursor.execute(sql)
         connection.connection.commit()
         return jsonify({'message': "Producto registrado."})
+
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
@@ -64,6 +68,7 @@ def create_item():
 
 @app.route("/items/<item_id>", methods = ['PUT'])
 def update_item(item_id):
+
     try:
         cursor = connection.connection.cursor()
 
@@ -74,6 +79,7 @@ def update_item(item_id):
         cursor.execute(sql)
         connection.connection.commit()
         return jsonify({'message': "Producto actualizado."})
+
     except Exception as ex:
         return jsonify ({'message': "Error"})
 
@@ -82,16 +88,16 @@ def update_item(item_id):
 
 @app.route("/items/<item_id>", methods = ['DELETE'])
 def delete_item(item_id):
+
     try:
         cursor = connection.connection.cursor()
         sql = "DELETE FROM items WHERE item_id = '{0}'".format(item_id)
         cursor.execute(sql)
         connection.connection.commit()
         return jsonify({'message': "Producto eliminado."})
+
     except Exception as ex:
         return jsonify ({'message': "Error"})
-
-
 
 def page_not_found(error):
     return "<h1> La página que intentas buscar no existe. </h1>", 404
