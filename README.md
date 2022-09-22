@@ -1,4 +1,4 @@
-#### Setup your environment
+#### Setup for your environment
 
 - Connect to your project directory 
 
