@@ -1,4 +1,4 @@
-#### Virtual Environment Setup 
+#### Setup your environment
 
 - Connect to your project directory 
 
@@ -25,4 +25,8 @@ source env/bin/activate (for MAC)
 ```
 - Select your Python interpreter in text
 
-- Install the packages from the requirements.txt
+- Install the packages from the requirements.txt:
+
+```
+pip install -r /path/to/requirements.txt
+```
