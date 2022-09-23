@@ -1,4 +1,4 @@
-from Item_Model import *
+from models.item_model import *
 from settings import *
 
 # GET Method / READ all items
