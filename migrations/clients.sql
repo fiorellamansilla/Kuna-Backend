@@ -12,8 +12,3 @@ CREATE TABLE clients (
   email VARCHAR(64) NOT NULL
 );
 
-INSERT INTO clients (id_client, first_name, last_name, address_client, zip_code, city, country, phone, email) 
-VALUES (1, 'Alberto', 'Mansilla Yanqui', 'Av Los Faisanes 1040, Santiago de Surco', 'L12', 'Lima','Peru', '987755267', 'mateplus.ciencias@gmail.com'); 
-
-INSERT INTO clients (id_client, first_name, last_name, address_client, zip_code, city, country, phone, email) 
-VALUES (2, 'Rosa', 'Mallqui Perez', 'Av Los Faisanes 1040, Santiago de Surco', 'L12', 'Lima','Peru', '922535040', 'rosamallquiperez@gmail.com');
