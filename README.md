@@ -12,7 +12,6 @@ py -m venv env (for WINDOWS)
 - Put the venv in your .gitignore (This keeps your virtual environment out of source control):
 
 ```
-git init
 echo 'venv' > .gitignore
 ```
 
@@ -28,5 +27,5 @@ source env/bin/activate (for MAC)
 - Install the packages from the requirements.txt:
 
 ```
-pip install -r /path/to/requirements.txt
+pip install -r requirements.txt
 ```
