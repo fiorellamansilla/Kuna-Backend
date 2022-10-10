@@ -1,7 +1,8 @@
-from settings import *
 from flask_sqlalchemy import SQLAlchemy
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
+from marshmallow import fields
 
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 class Client(db.Model):
     __tablename__ = "clients"

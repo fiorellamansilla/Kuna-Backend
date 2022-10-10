@@ -1,6 +1,6 @@
 USE kuna_db;
 
-CREATE TABLE items (
+CREATE TABLE item (
 item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 name_item VARCHAR(128) NOT NULL,
 desc_item VARCHAR (2048) NOT NULL ,

@@ -1,28 +1,25 @@
-from models.item_model import *
-from settings import *
+from models.item import Item, ItemSchema
+from flask import make_response, jsonify, request
+from flask_sqlalchemy  import SQLAlchemy
+
+db = SQLAlchemy()
 
 # GET Method / READ all items
-
-@app.route('/items', methods = ['GET'])
-def index_items():
+def index():
     get_items = Item.query.all()
     item_schema = ItemSchema(many=True)
     items = item_schema.dump(get_items)
     return make_response(jsonify({"item": items}))
 
 # GET Method / READ one item by ID
-
-@app.route('/items/<item_id>', methods = ['GET'])
-def get_item_by_id(item_id):
+def get_by_id(item_id):
     get_item = Item.query.get(item_id)
     item_schema = ItemSchema()
     item = item_schema.dump(get_item)
     return make_response(jsonify({"item": item}))
 
 # PUT Method / UPDATE
-
-@app.route('/items/<item_id>', methods = ['PUT'])
-def update_item_by_id(item_id):
+def update_by_id(item_id):
     data = request.get_json()
     get_item = Item.query.get(item_id)
 
@@ -48,9 +45,7 @@ def update_item_by_id(item_id):
     return make_response(jsonify({"item": item}))
 
 # POST Method / CREATE
-
-@app.route('/items', methods = ['POST'])
-def create_item():
+def create():
     data = request.get_json()
     item_schema = ItemSchema()
     item = item_schema.load(data)
@@ -58,13 +53,8 @@ def create_item():
     return make_response(jsonify({"item": result}),200)
 
 # DELETE Method / DELETE
-
-@app.route('/items/<item_id>', methods = ['DELETE'])
-def delete_item_by_id(item_id):
+def delete_by_id(item_id):
     get_item = Item.query.get(item_id)
     db.session.delete(get_item)
     db.session.commit()
     return make_response("",204)
-
-if __name__ == "__main__":
-    app.run(debug=True)
