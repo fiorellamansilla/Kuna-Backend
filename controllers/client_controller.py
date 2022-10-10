@@ -1,4 +1,4 @@
-from models.client_model import *
+from models.client import *
 from app import *
 
 # GET Method / READ all clients
