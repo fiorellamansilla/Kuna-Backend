@@ -1,5 +1,5 @@
 from models.client_model import *
-from settings import *
+from app import *
 
 # GET Method / READ all clients
 

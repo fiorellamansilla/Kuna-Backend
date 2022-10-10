@@ -1,4 +1,4 @@
-from settings import *
+from app import *
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy(app)

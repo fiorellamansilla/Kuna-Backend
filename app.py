@@ -8,4 +8,4 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost
 app.config ['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

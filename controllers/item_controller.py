@@ -1,9 +1,9 @@
 from models.item_model import *
-from settings import *
+from app import *
 
 # GET Method / READ all items
 
-@app.route('/items', methods = ['GET'])
+@app.route('/item', methods = ['GET'])
 def index_items():
     get_items = Item.query.all()
     item_schema = ItemSchema(many=True)
@@ -12,7 +12,7 @@ def index_items():
 
 # GET Method / READ one item by ID
 
-@app.route('/items/<item_id>', methods = ['GET'])
+@app.route('/item/<item_id>', methods = ['GET'])
 def get_item_by_id(item_id):
     get_item = Item.query.get(item_id)
     item_schema = ItemSchema()
@@ -21,7 +21,7 @@ def get_item_by_id(item_id):
 
 # PUT Method / UPDATE
 
-@app.route('/items/<item_id>', methods = ['PUT'])
+@app.route('/item/<item_id>', methods = ['PUT'])
 def update_item_by_id(item_id):
     data = request.get_json()
     get_item = Item.query.get(item_id)
@@ -49,7 +49,7 @@ def update_item_by_id(item_id):
 
 # POST Method / CREATE
 
-@app.route('/items', methods = ['POST'])
+@app.route('/item', methods = ['POST'])
 def create_item():
     data = request.get_json()
     item_schema = ItemSchema()
@@ -59,7 +59,7 @@ def create_item():
 
 # DELETE Method / DELETE
 
-@app.route('/items/<item_id>', methods = ['DELETE'])
+@app.route('/item/<item_id>', methods = ['DELETE'])
 def delete_item_by_id(item_id):
     get_item = Item.query.get(item_id)
     db.session.delete(get_item)

@@ -2,7 +2,7 @@
 
 - Connect to your project directory 
 
-- Create your virtual environment inside of your project directory:
+- Create your virtual environment inside your project directory:
 
 ```
 python3 -m venv env (for MAC)
