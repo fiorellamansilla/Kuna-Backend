@@ -1,4 +1,6 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy, SQLAlchemyAutoSchema
+
+db = SQLAlchemy()
 
 class Item(db.Model):
     __tablename__ = "items"
