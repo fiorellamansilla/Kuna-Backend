@@ -29,3 +29,9 @@ source env/bin/activate (for MAC)
 ```
 pip install -r requirements.txt
 ```
+
+How to run the project
+
+```
+python app.py
+```
