@@ -13,7 +13,7 @@ def index_items():
 # GET Method / READ one item by ID
 
 @app.route('/item/<item_id>', methods = ['GET'])
-def get_item_by_id(item_id):
+def get_by_id(item_id):
     get_item = Item.query.get(item_id)
     item_schema = ItemSchema()
     item = item_schema.dump(get_item)
@@ -22,7 +22,7 @@ def get_item_by_id(item_id):
 # PUT Method / UPDATE
 
 @app.route('/item/<item_id>', methods = ['PUT'])
-def update_item_by_id(item_id):
+def update_by_id(item_id):
     data = request.get_json()
     get_item = Item.query.get(item_id)
 
@@ -50,7 +50,7 @@ def update_item_by_id(item_id):
 # POST Method / CREATE
 
 @app.route('/item', methods = ['POST'])
-def create_item():
+def create():
     data = request.get_json()
     item_schema = ItemSchema()
     item = item_schema.load(data)
@@ -60,7 +60,7 @@ def create_item():
 # DELETE Method / DELETE
 
 @app.route('/item/<item_id>', methods = ['DELETE'])
-def delete_item_by_id(item_id):
+def delete_by_id(item_id):
     get_item = Item.query.get(item_id)
     db.session.delete(get_item)
     db.session.commit()

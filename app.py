@@ -1,8 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from routes.client import client_bp
 
 # Create an instance of the Flask App 
 app = Flask(__name__)
+
+# Routes
+app.register_blueprint(client_bp, url_prefix='/client')
 
 # Configure our Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost:3306/kuna_db'

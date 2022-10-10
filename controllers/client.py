@@ -1,28 +1,25 @@
-from models.client import *
-from app import *
+from models.client import Client, ClientSchema
+from flask import make_response, jsonify, request
+from flask_sqlalchemy  import SQLAlchemy
+
+db = SQLAlchemy()
 
 # GET Method / READ all clients
-
-@app.route('/clients', methods = ['GET'])
-def index_clients():
+def index():
     get_clients = Client.query.all()
     client_schema = ClientSchema(many=True)
     clients = client_schema.dump(get_clients)
     return make_response(jsonify({"client": clients}))
 
 # GET Method / READ one client by ID
-
-@app.route('/clients/<id_client>', methods = ['GET'])
-def get_client_by_id(id_client):
+def get_by_id(id_client):
     get_client = Client.query.get(id_client)
     client_schema = ClientSchema()
     client = client_schema.dump(get_client)
     return make_response(jsonify({"client": client}))
 
 # PUT Method / UPDATE
-
-@app.route('/clients/<id_client>', methods = ['PUT'])
-def update_client_by_id(id_client):
+def update_by_id(id_client):
     data = request.get_json()
     get_client = Client.query.get(id_client)
 
@@ -50,9 +47,7 @@ def update_client_by_id(id_client):
     return make_response(jsonify({"client": client}))
 
 # POST Method / CREATE
-
-@app.route('/clients', methods = ['POST'])
-def create_client():
+def create():
     data = request.get_json()
     client_schema = ClientSchema()
     client = client_schema.load(data)
@@ -60,13 +55,8 @@ def create_client():
     return make_response(jsonify({"client": result}),200)
 
 # DELETE Method / DELETE
-
-@app.route('/clients/<id_client>', methods = ['DELETE'])
-def delete_client_by_id(id_client):
+def delete_by_id(id_client):
     get_client = Client.query.get(id_client)
     db.session.delete(get_client)
     db.session.commit()
     return make_response("",204)
-
-if __name__ == "__main__":
-    app.run(debug=True)
