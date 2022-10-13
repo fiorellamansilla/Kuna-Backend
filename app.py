@@ -10,7 +10,6 @@ app = Flask(__name__)
 app.register_blueprint(client_bp, url_prefix='/client')
 app.register_blueprint(item_bp, url_prefix='/item')
 
-
 # Configure our Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost:3306/kuna_db'
 app.config ['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
