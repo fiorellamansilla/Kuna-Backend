@@ -14,14 +14,14 @@ class Item(db.Model):
     discount = db.Column (db.Float, nullable=False, server_default="0")
     SKU = db.Column (db.String(128), nullable=False)
     quantity_stock = db.Column (db.Integer, nullable=False, server_default="0")
-    images = db.Column(db.String(256), nullable=False)
+    image_path = db.Column(db.String(256), nullable=False)
 
     def create(self):
         db.session.add(self)
         db.session.commit()
         return self
 
-    def __init__(self,name_item,desc_item,size,price,discount,SKU,quantity_stock,images):
+    def __init__(self,name_item,desc_item,size,price,discount,SKU,quantity_stock,image_path):
         self.name_item = name_item
         self.desc_item = desc_item
         self.size = size
@@ -29,7 +29,7 @@ class Item(db.Model):
         self.discount = discount
         self.SKU = SKU
         self.quantity_stock = quantity_stock
-        self.images = images
+        self.image_path = image_path
 
     def __repr__(self):
         return '' % self.item_id
@@ -49,5 +49,5 @@ class ItemSchema(SQLAlchemyAutoSchema):
     discount = fields.Number(required=True)
     SKU = fields.String(required=True)
     quantity_stock = fields.Number(required=True)
-    images = fields.String(required=True)
+    image_path = fields.String(required=True)
     

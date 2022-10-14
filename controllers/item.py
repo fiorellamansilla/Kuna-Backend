@@ -37,12 +37,12 @@ def update_by_id(item_id):
         get_item.SKU= data['SKU'] 
     if data.get('quantity_stock'):
         get_item.quantity_stock= data['quantity_stock']
-    if data.get('images'):
-        get_item.images= data['images']       
+    if data.get('image_path'):
+        get_item.images= data['image_path']       
 
     db.session.add(get_item)
     db.session.commit()
-    item_schema = ItemSchema(only=['item_id', 'name_item', 'desc_item','size','price', 'discount', 'SKU', 'quantity_stock', 'images'])
+    item_schema = ItemSchema(only=['item_id', 'name_item', 'desc_item','size','price', 'discount', 'SKU', 'quantity_stock', 'image_path'])
     item = item_schema.dump(get_item)
     return make_response(jsonify({"item": item}))
 
