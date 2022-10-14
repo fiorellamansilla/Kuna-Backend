@@ -38,7 +38,7 @@ def update_by_id(item_id):
     if data.get('quantity_stock'):
         get_item.quantity_stock= data['quantity_stock']
     if data.get('image_path'):
-        get_item.images= data['image_path']       
+        get_item.image_path= data['image_path']       
 
     db.session.add(get_item)
     db.session.commit()
