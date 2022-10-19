@@ -5,8 +5,10 @@ from marshmallow import fields
 db = SQLAlchemy()
 
 class Client(db.Model):
-    __tablename__ = "clients"
+    __tablename__ = "client"
     id_client = db.Column (db.Integer, autoincrement = True, nullable =False, primary_key=True)
+    username = db.Column(db.String(64), nullable=False, unique=True )
+    password_client = db.Column (db.String(64), nullable=False)
     first_name = db.Column(db.String(64), nullable=False, unique=True )
     last_name = db.Column (db.String(64), nullable=False)
     address_client = db.Column (db.String(128), nullable=False)
@@ -21,7 +23,9 @@ class Client(db.Model):
         db.session.commit()
         return self
 
-    def __init__(self, first_name, last_name, address_client, zip_code, city, country, phone, email):
+    def __init__(self, username, password_client, first_name, last_name, address_client, zip_code, city, country, phone, email):
+        self.username = username
+        self.password_client = password_client
         self.first_name = first_name
         self.last_name = last_name
         self.address_client = address_client
@@ -42,6 +46,8 @@ class ClientSchema(SQLAlchemyAutoSchema):
         load_instance = True
         sqla_session = db.session
     id_client = fields.Number(dump_only=True)
+    username = fields.String(required=True)
+    password_client = fields.String(required=True)
     first_name = fields.String(required=True)
     last_name = fields.String(required=True)
     address_client = fields.String(required=True)

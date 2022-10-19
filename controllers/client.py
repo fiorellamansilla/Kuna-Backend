@@ -23,6 +23,10 @@ def update_by_id(id_client):
     data = request.get_json()
     get_client = Client.query.get(id_client)
 
+    if data.get('username'):
+        get_client.username = data['username']
+    if data.get('password_client'):
+        get_client.password_client = data['password_client']
     if data.get('first_name'):
         get_client.first_name = data['first_name']
     if data.get('last_name'):
@@ -42,7 +46,7 @@ def update_by_id(id_client):
 
     db.session.add(get_client)
     db.session.commit()
-    client_schema = ClientSchema(only=['id_client', 'first_name', 'last_name', 'address_client', 'zip_code', 'city', 'country', 'phone', 'email'])
+    client_schema = ClientSchema(only=['id_client','username','password_client','first_name', 'last_name', 'address_client', 'zip_code', 'city', 'country', 'phone', 'email'])
     client = client_schema.dump(get_client)
     return make_response(jsonify({"client": client}))
 
