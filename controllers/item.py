@@ -29,6 +29,8 @@ def update_by_id(item_id):
         get_item.desc_item = data['desc_item']
     if data.get('size'):
         get_item.size = data['size']
+    if data.get('color'):
+        get_item.color = data['color']
     if data.get('price'):
         get_item.price= data['price'] 
     if data.get('discount'):
@@ -42,7 +44,7 @@ def update_by_id(item_id):
 
     db.session.add(get_item)
     db.session.commit()
-    item_schema = ItemSchema(only=['item_id', 'name_item', 'desc_item','size','price', 'discount', 'SKU', 'quantity_stock', 'image_path'])
+    item_schema = ItemSchema(only=['item_id', 'name_item', 'desc_item','size','color','price', 'discount', 'SKU', 'quantity_stock', 'image_path'])
     item = item_schema.dump(get_item)
     return make_response(jsonify({"item": item}))
 
