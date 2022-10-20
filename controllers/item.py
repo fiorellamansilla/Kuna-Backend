@@ -26,7 +26,7 @@ def get_by_id(item_id):
     item_schema = ItemSchema()
     item = item_schema.dump(get_item)
     item_entity = ItemEntity(item)
-    return make_response(jsonify({"item": item_entity}))
+    return make_response(jsonify({"item": item_entity.toJSON()}))
 
 # PUT Method / UPDATE
 def update_by_id(item_id):
