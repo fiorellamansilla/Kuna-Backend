@@ -5,4 +5,3 @@ class Color(Enum):
     BEIGE = "beige"
     PINK = "pink"
     LIGHTGREEN = "light green"
-

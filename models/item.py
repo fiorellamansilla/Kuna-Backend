@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow import fields
-from models.color_item import Color
 
 db = SQLAlchemy()
 
@@ -27,7 +26,7 @@ class Item(db.Model):
         self.name_item = name_item
         self.desc_item = desc_item
         self.size = size
-        self.color = Color(color).value
+        self.color = color
         self.price = price
         self.discount = discount
         self.SKU = SKU
@@ -44,14 +43,14 @@ class ItemSchema(SQLAlchemyAutoSchema):
         model = Item
         load_instance = True
         sqla_session = db.session
-    item_id = fields.Number(dump_only=True)
+    item_id = fields.Integer(dump_only=True)
     name_item = fields.String(required=True)
     desc_item = fields.String(required=True)
     size = fields.String(required=True)
     color = fields.String(required=True)
     price = fields.Number(required=True)
-    discount = fields.Number(required=True)
+    discount = fields.Integer(required=True)
     SKU = fields.String(required=True)
-    quantity_stock = fields.Number(required=True)
+    quantity_stock = fields.Integer(required=True)
     image_path = fields.String(required=True)
     
