@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow import fields
+from models.color_item import Color
 
 db = SQLAlchemy()
 
@@ -26,7 +27,7 @@ class Item(db.Model):
         self.name_item = name_item
         self.desc_item = desc_item
         self.size = size
-        self.color = color
+        self.color = Color(color).value
         self.price = price
         self.discount = discount
         self.SKU = SKU
