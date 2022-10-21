@@ -1,5 +1,7 @@
 from models.item import Item, ItemSchema
+from entities.item import Item as ItemEntity
 from flask import make_response, jsonify, request
+import json
 from flask_sqlalchemy  import SQLAlchemy
 
 db = SQLAlchemy()
@@ -9,14 +11,22 @@ def index():
     get_items = Item.query.all()
     item_schema = ItemSchema(many=True)
     items = item_schema.dump(get_items)
-    return make_response(jsonify({"item": items}))
+    item_entities = []
+
+    for item in items:
+        print(item)
+        item_entity = ItemEntity(item)
+        item_entities.append(item_entity)
+        
+    return make_response(jsonify({"item": [i.toJSON() for i in item_entities]}))
 
 # GET Method / READ one item by ID
 def get_by_id(item_id):
     get_item = Item.query.get(item_id)
     item_schema = ItemSchema()
     item = item_schema.dump(get_item)
-    return make_response(jsonify({"item": item}))
+    item_entity = ItemEntity(item)
+    return make_response(jsonify({"item": item_entity.toJSON()}))
 
 # PUT Method / UPDATE
 def update_by_id(item_id):
@@ -29,6 +39,8 @@ def update_by_id(item_id):
         get_item.desc_item = data['desc_item']
     if data.get('size'):
         get_item.size = data['size']
+    if data.get('color'):
+        get_item.color = data['color']
     if data.get('price'):
         get_item.price= data['price'] 
     if data.get('discount'):
@@ -42,7 +54,7 @@ def update_by_id(item_id):
 
     db.session.add(get_item)
     db.session.commit()
-    item_schema = ItemSchema(only=['item_id', 'name_item', 'desc_item','size','price', 'discount', 'SKU', 'quantity_stock', 'image_path'])
+    item_schema = ItemSchema(only=['item_id', 'name_item', 'desc_item','size','color','price', 'discount', 'SKU', 'quantity_stock', 'image_path'])
     item = item_schema.dump(get_item)
     return make_response(jsonify({"item": item}))
 
