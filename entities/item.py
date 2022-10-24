@@ -1,7 +1,5 @@
-from enums.color_item import Color
-from enums.size_item import Size
-import json
-
+from enums.color import Color
+from enums.size import Size
 
 class Item:
     def __init__(self,item_schema):
@@ -15,11 +13,13 @@ class Item:
         self.SKU = item_schema['SKU']
         self.quantity_stock = item_schema['quantity_stock']
         self.image_path = item_schema['image_path']
-
-    def toJSON(self):
-        return "item {}: {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.item_id,self.name_item, self.desc_item, self.size.value, self.color.value, self.price, self.discount, self.SKU, self.quantity_stock, self.image_path)
+        self.created_at = item_schema['created_at']
+        self.modified_at = item_schema['modified_at']
+        self.deleted_at = item_schema['deleted_at']
 
     def __repr__(self):
-        return '' % self.item_id
+        return str(self.__dict__)
 
+    def toJSON(self):      
+        return str(self.__dict__)
 
