@@ -1,7 +1,7 @@
 USE kuna_db;
 
 CREATE TABLE client (
-  id_client INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  client_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(64) NOT NULL,
   password_client VARCHAR(64) NOT NULL,
   first_name VARCHAR(64) NOT NULL,
