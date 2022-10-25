@@ -3,12 +3,10 @@ USE kuna_db;
 CREATE TABLE  orders (
 order_id INT NOT NULL AUTO_INCREMENT,
 client_id INT NOT NULL,
-item_id INT NOT NULL,
 quantity_ordered INT NOT NULL DEFAULT 0,
 total_ordered FLOAT NOT NULL DEFAULT 0,
 created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 modified_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (order_id),
 FOREIGN KEY (client_id) REFERENCES client(client_id),
-FOREIGN KEY (item_id) REFERENCES item(item_id)
 );
