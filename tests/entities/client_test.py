@@ -1,5 +1,4 @@
 from entities.client import Client
-from models.client import ClientSchema
 
 class TestClient:
     def setup(self):
