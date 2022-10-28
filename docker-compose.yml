@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_DATABASE=kuna_db
+      - MYSQL_ROOT_PASSWORD=19293119
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./docker/mysql_volume:/var/lib/mysql
