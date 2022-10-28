@@ -14,6 +14,15 @@ py -m venv env (for WINDOWS)
 ```
 echo 'venv' > .gitignore
 ```
+- Also add these folders in .gitignore\
+
+```
+.gitignore
+env
+.idea
+__pycache__
+docker
+```
 
 - Activate your virtual environment with the following commands:
 
@@ -34,4 +43,15 @@ How to run the project
 
 ```
 python app.py
+```
+
+If you want to use Docker for mysql run from the project:
+
+```
+docker-compose up
+```
+See if db is running with
+
+```
+docker ps
 ```
