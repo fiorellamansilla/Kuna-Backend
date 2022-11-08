@@ -1,5 +1,6 @@
 from flask_sqlalchemy  import SQLAlchemy
-from models.client import Client, ClientSchema
+from models.client import Client
+from schemas.client_schema import ClientSchema
 from entities.client import Client as ClientEntity 
 from flask import make_response, jsonify, request
 import json 
