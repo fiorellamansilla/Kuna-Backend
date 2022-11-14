@@ -26,7 +26,7 @@ class Order(db.Model):
     client = db.relationship ('Client', backref ='orders')
 
     # Many to Many relationship between Order and Item
-    # items = db.relationship ('Item', secondary = order_item, backref="orders")
+    items = db.relationship ('Item', secondary = order_item, back_populates="orders")
 
     def create(self):
         db.session.add(self)

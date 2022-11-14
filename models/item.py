@@ -22,7 +22,7 @@ class Item(db.Model):
     deleted_at = db.Column(db.DateTime(timezone = True), nullable=False, server_default=func.now())
 
     # Many to Many relationship between Item and Order
-    orders = db.relationship ('Order', secondary = order_item, backref="items")
+    orders = db.relationship ('Order', secondary = order_item, back_populates="items")
 
 
     def create(self):
