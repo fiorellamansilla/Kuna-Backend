@@ -2,7 +2,9 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy.sql import func
 from sqlalchemy.orm import backref
-from models.client import db 
+from models.client import db
+from models.item import Item
+from models.order_item import order_item
 
 class Order(db.Model):
     __tablename__ = "orders"
@@ -19,9 +21,12 @@ class Order(db.Model):
     shipped_at = db.Column(db.DateTime(timezone = True), nullable=False,server_default=func.now() )
     tracking_number = db.Column (db.String(64), nullable=False )
 
+    # One to Many relationship between Order and Client
     client_id = db.Column (db.Integer, db.ForeignKey("client.client_id", ondelete="CASCADE", onupdate="CASCADE"), nullable = False)
     client = db.relationship ('Client', backref ='orders')
 
+    # Many to Many relationship between Order and Item
+    # items = db.relationship ('Item', secondary = order_item, backref="orders")
 
     def create(self):
         db.session.add(self)
