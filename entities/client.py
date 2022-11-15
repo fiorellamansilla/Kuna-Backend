@@ -2,6 +2,7 @@
 class Client:
     
     def __init__(self, client_schema):
+        self.client_id = client_schema['client_id']
         self.username = client_schema ['username']
         self.password_client = client_schema ['password_client']
         self.first_name = client_schema ['first_name']
