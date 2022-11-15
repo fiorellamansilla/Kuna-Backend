@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 from sqlalchemy.orm import backref
 from models.client import db
 from models.item import Item
-from models.order_item import order_item
+from models.order_item import OrderItem
 
 class Order(db.Model):
     __tablename__ = "orders"
@@ -26,7 +26,7 @@ class Order(db.Model):
     client = db.relationship ('Client', backref ='orders')
 
     # Many to Many relationship between Order and Item
-    items = db.relationship ('Item', secondary = order_item, back_populates="orders")
+    # items = db.relationship ('Item', secondary = order_item, back_populates="orders")
 
     def create(self):
         db.session.add(self)
