@@ -1,5 +1,5 @@
 
-class OrderItem:
+class OrderItemEntity:
 
     def __init__(self, order_item_schema):
         self.order_item_id = order_item_schema['order_item_id']
