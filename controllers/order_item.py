@@ -49,3 +49,18 @@ def update_by_id(order_item_id):
     order_item_schema = OrderItemSchema(only=['order_id','item_id','quantity_ordered','total_amount'])
     order_item = order_item_schema.dump(get_order_item)
     return make_response(jsonify({"order_item": order_item}))
+
+# POST Method / CREATE
+def create():
+    data = request.get_json()
+    order_item_schema = OrderItemSchema()
+    order_item = order_item_schema.load(data)
+    result = order_item_schema.dump(order_item.create())
+    return make_response(jsonify({"order_item": result}),200)
+
+# DELETE Method / DELETE
+def delete_by_id(order_item_id):
+    get_order_item = OrderItem.query.get(order_item_id)
+    db.session.delete(get_order_item)
+    db.session.commit()
+    return make_response("",204)
