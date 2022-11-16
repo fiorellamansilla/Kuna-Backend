@@ -34,10 +34,10 @@ def update_by_id(order_id):
     data = request.get_json()
     get_order = Order.query.get(order_id)
 
-    if data.get('client_id'):
-        get_order.client_id = data['client_id']
     if data.get('order_amount'):
         get_order.order_amount = data['order_amount']
+    if data.get('client_id'):
+        get_order.client_id = data['client_id']
     if data.get('ship_name'):
         get_order.ship_name = data['ship_name']
     if data.get('ship_adress'):
@@ -61,7 +61,7 @@ def update_by_id(order_id):
 
     db.session.add(get_order)
     db.session.commit()
-    order_schema = OrderSchema(only=['client_id','order_amount','ship_name','ship_adress', 'order_city', 'order_zip', 'order_country', 'order_phone', 'order_email', 'ordered_at','shipped_at', 'tracking_number'])
+    order_schema = OrderSchema(only=['order_amount','client_id','ship_name','ship_adress', 'order_city', 'order_zip', 'order_country', 'order_phone', 'order_email', 'ordered_at','shipped_at', 'tracking_number'])
     order = order_schema.dump(get_order)
     return make_response(jsonify({"order": order}))
 

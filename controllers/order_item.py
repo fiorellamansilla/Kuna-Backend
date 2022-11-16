@@ -7,7 +7,7 @@ import json
 
 db = SQLAlchemy()
 
-# GET Method / READ all orders
+# GET Method / READ all order_items
 def index():
     get_order_items = OrderItem.query.all()
     order_item_schema = OrderItemSchema(many=True)
@@ -21,7 +21,7 @@ def index():
 
     return make_response(jsonify({"order_item": [i.toJSON() for i in order_item_entities]}))
 
-# GET Method / READ one order by ID
+# GET Method / READ one order_item by ID
 def get_by_id(order_item_id):
     get_order_item = OrderItem.query.get(order_item_id)
     order_item_schema = OrderItemSchema()

@@ -4,6 +4,7 @@ class Order:
     def __init__(self, order_schema):
         self.order_id = order_schema['order_id']
         self.order_amount = order_schema['order_amount']
+        self.client_id = order_schema['client_id']
         self.ship_name = order_schema['ship_name']
         self.ship_address = order_schema['ship_address']
         self.order_city = order_schema['order_city']
