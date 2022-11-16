@@ -1,9 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy.sql import func
-
-
-db = SQLAlchemy()
+from sqlalchemy.orm import backref
+from models.client import db
 
 class Item(db.Model):
     __tablename__ = "item"
@@ -20,6 +19,10 @@ class Item(db.Model):
     created_at = db.Column(db.DateTime(timezone = True), nullable=False, server_default=func.now())
     modified_at = db.Column(db.DateTime(timezone = True), nullable=False, onupdate=func.now())
     deleted_at = db.Column(db.DateTime(timezone = True), nullable=False, server_default=func.now())
+
+    # Many to Many relationship between Item and Order
+    # orders = db.relationship ('Order', secondary = order_item, back_populates="items")
+
 
     def create(self):
         db.session.add(self)
